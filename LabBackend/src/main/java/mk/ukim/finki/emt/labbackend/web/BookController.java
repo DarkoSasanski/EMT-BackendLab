@@ -2,6 +2,7 @@ package mk.ukim.finki.emt.labbackend.web;
 
 import mk.ukim.finki.emt.labbackend.model.Book;
 import mk.ukim.finki.emt.labbackend.model.dto.BookDto;
+import mk.ukim.finki.emt.labbackend.model.enumarations.Category;
 import mk.ukim.finki.emt.labbackend.service.BookService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/books")
 public class BookController {
     private final BookService bookService;
@@ -70,5 +72,11 @@ public class BookController {
     public List<Book> findAllByPagination(Pageable pageable)
     {
         return bookService.findAllByPagination(pageable).getContent();
+    }
+
+    @GetMapping("/categories")
+    public List<Category> getAllCategories()
+    {
+        return Arrays.stream(Category.values()).toList();
     }
 }
